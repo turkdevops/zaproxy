@@ -94,16 +94,15 @@ public class ExtensionAutoUpdate extends ExtensionAdaptor
 
     private static final String NAME = "ExtensionAutoUpdate";
 
-    // The short URL means that the number of checkForUpdates can be tracked - see
-    // https://bitly.com/u/psiinon
+    // The short URL means that the number of checkForUpdates can be tracked
     // Note that URLs must now use https (unless you change the code;)
 
     private static final String ZAP_VERSIONS_REL_XML_DESKTOP_SHORT =
-            "https://bit.ly/owaspzap-2-9-0";
+            "https://bit.ly/owaspzap-2-10-0";
     private static final String ZAP_VERSIONS_REL_XML_DAEMON_SHORT =
-            "https://bit.ly/owaspzap-2-9-0d";
+            "https://bit.ly/owaspzap-2-10-0d";
     private static final String ZAP_VERSIONS_REL_XML_FULL =
-            "https://raw.githubusercontent.com/zaproxy/zap-admin/master/ZapVersions-2.9.xml";
+            "https://raw.githubusercontent.com/zaproxy/zap-admin/master/ZapVersions-2.10.xml";
 
     private static final String ZAP_VERSIONS_DEV_XML_SHORT = "https://bit.ly/owaspzap-dev";
     private static final String ZAP_VERSIONS_DEV_XML_FULL =
@@ -1727,7 +1726,7 @@ public class ExtensionAutoUpdate extends ExtensionAdaptor
         }
 
         if (getView() != null) {
-            return uninstallAddOnsWithView(caller, addOns, updates, new HashSet<AddOn>());
+            return uninstallAddOnsWithView(caller, addOns, updates, new HashSet<>());
         }
 
         final Set<AddOn> failedUninstallations = new HashSet<>();
@@ -2025,7 +2024,7 @@ public class ExtensionAutoUpdate extends ExtensionAdaptor
                 AddOnDependencyChecker addOnDependencyChecker =
                         new AddOnDependencyChecker(getLocalVersionInfo(), aoc);
 
-                Set<AddOn> addonSet = new HashSet<AddOn>();
+                Set<AddOn> addonSet = new HashSet<>();
                 addonSet.add(ao);
                 UninstallationResult result =
                         addOnDependencyChecker.calculateUninstallChanges(addonSet);
@@ -2146,7 +2145,7 @@ public class ExtensionAutoUpdate extends ExtensionAdaptor
         }
         if (arguments[ARG_CFU_LIST_IDX].isEnabled()) {
             AddOnCollection aoc = this.getLocalVersionInfo();
-            List<AddOn> aolist = new ArrayList<AddOn>(aoc.getAddOns());
+            List<AddOn> aolist = new ArrayList<>(aoc.getAddOns());
             Collections.sort(
                     aolist,
                     new Comparator<AddOn>() {

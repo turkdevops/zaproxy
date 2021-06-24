@@ -151,13 +151,14 @@ tasks.register<Tar>("distLinux") {
 
 val macOsJreDir = file("$buildDir/macOsJre")
 val macOsJreUnpackDir = File(macOsJreDir, "unpacked")
-val macOsJreVersion = "8u232-b09"
+val macOsJreVersion = "8u275-b01"
 val macOsJreFile = File(macOsJreDir, "jdk$macOsJreVersion-jre.tar.gz")
 
 val downloadMacOsJre by tasks.registering(Download::class) {
     src("https://api.adoptopenjdk.net/v2/binary/releases/openjdk8?openjdk_impl=hotspot&os=mac&arch=x64&type=jre&release=jdk$macOsJreVersion")
     dest(macOsJreFile)
-    timeout(60_000)
+    connectTimeout(60_000)
+    readTimeout(60_000)
     onlyIfModified(true)
     doFirst {
         require (Os.isFamily(Os.FAMILY_MAC)) {
@@ -170,7 +171,7 @@ val verifyMacOsJre by tasks.registering(Verify::class) {
     dependsOn(downloadMacOsJre)
     src(macOsJreFile)
     algorithm("SHA-256")
-    checksum("5ec5f11dbc81ab65641b765e1ef2f924736c0d1cc797cb95b078598d9d863afd")
+    checksum("65f50eb542209783f363c342487b0899037d9639ace3ea97518ec973fedb1e27")
 }
 
 val unpackMacOSJre by tasks.registering(Copy::class) {
